@@ -1,8 +1,32 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import {toggleMenu} from "../utils/appSlice";
+import { YOUTUBE_SEARCH_API } from "../utils/constant";
 
 const Head = ()=>{
+
+  const[searchQuery,setSearchQuery] = useState("iphone");
+       
+  useEffect(()=>{
+    console.log(searchQuery)
+    getSearchSuggestions();
+
+  },[searchQuery])
+
+  const getSearchSuggestions = async () => {
+    console.log(searchQuery,"searchQuery")
+
+    // try {
+    //   await fetch(YOUTUBE_SEARCH_API + searchQuery);
+    // } catch(err) {
+    //   alert(err); // Failed to fetch
+    // }
+
+  const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+  const json = await data.json();
+  console.log(json);
+ }
+
   const dispatch = useDispatch();
   const toggleMenuHandler = () =>{
         dispatch(toggleMenu());
@@ -16,7 +40,10 @@ const Head = ()=>{
             <img className="h-8 mx-2" src="https://lh3.googleusercontent.com/3zkP2SYe7yYoKKe47bsNe44yTgb4Ukh__rBbwXwgkjNRe4PykGG409ozBxzxkrubV7zHKjfxq6y9ShogWtMBMPyB3jiNps91LoNH8A=s500" alt="youtube-logo" />
           </div>
          <div className="flex justify-center col-span-10">
-           <input className="w-1/2 border border-gray-400 p-2 rounded-l-full" type="text"/>
+           <input className="w-1/2 border border-gray-400 p-2 rounded-l-full" type="text"
+             value={searchQuery}
+             onChange={(e)=>setSearchQuery(e.target.value)}
+           />
            <button className="border border-gray-400 p-2 px-5 bg-gray-100 rounded-r-full">🔍</button>
          </div>
           <div className="col-span-1">
