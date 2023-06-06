@@ -5,26 +5,36 @@ import { YOUTUBE_SEARCH_API } from "../utils/constant";
 
 const Head = ()=>{
 
-  const[searchQuery,setSearchQuery] = useState("iphone");
+  const[searchQuery,setSearchQuery] = useState("");
        
   useEffect(()=>{
-    console.log(searchQuery)
-    getSearchSuggestions();
+    //make an api call after every key press
+    //but if the diffrence btw 2 api calls is < 200ms decline the api call 
+      const timer = setTimeout(()=> getSearchSuggestions(),200); 
+             return () =>{
+              clearTimeout(timer);
+             };
+          },[searchQuery])
+  /*
+    key-i
+    render the component
+    useEffect()
+    start timer =>make api call after 200ms
 
-  },[searchQuery])
+    key-ip
+    destroy the component (useEffect return method)
+    re-render the component
+    useEffect()
+    start timer => make an api call after 200ms
+
+  */
 
   const getSearchSuggestions = async () => {
-    console.log(searchQuery,"searchQuery")
-
-    // try {
-    //   await fetch(YOUTUBE_SEARCH_API + searchQuery);
-    // } catch(err) {
-    //   alert(err); // Failed to fetch
-    // }
-
+    console.log(searchQuery)
   const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
   const json = await data.json();
   console.log(json);
+  
  }
 
   const dispatch = useDispatch();
