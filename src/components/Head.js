@@ -9,35 +9,38 @@ const Head = ()=>{
   const[suggestions,setSuggestions] = useState([]);
        
   useEffect(()=>{
-    //make an api call after every key press
-    //but if the diffrence btw 2 api calls is < 200ms decline the api call 
       const timer = setTimeout(()=> getSearchSuggestions(),200); 
              return () =>{
               clearTimeout(timer);
              };
           },[searchQuery])
-  /*
-    key-i
-    render the component
-    useEffect()
-    start timer =>make api call after 200ms
-
-    key-ip
-    destroy the component (useEffect return method)
-    re-render the component
-    useEffect()
-    start timer => make an api call after 200ms
-
-  */
 
   const getSearchSuggestions = async () => {
-    console.log(searchQuery)
   const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
   const json = await data.json();
-  //console.log(json[1] );
-  setSuggestions(json[1]);
-  
+  //console.log(json[1])
+  setSuggestions(json[1])
  }
+
+// const getSearchSuggestions = async () => {
+//   //.log(searchQuery)
+//   const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+//   const text = await response.text();
+//   console.log(text);
+
+//   const startIndex = text.indexOf('[');
+//   const endIndex = text.lastIndexOf(']');
+
+//   if (startIndex !== -1 && endIndex !== -1) {
+//     const suggestionsJSON = text.substring(startIndex, endIndex + 1);
+//     const suggestions = JSON.parse(suggestionsJSON);
+//     console.log(suggestions);
+//   }
+//   setSuggestions(json[1]);
+
+// };
+
+
 
   const dispatch = useDispatch();
   const toggleMenuHandler = () =>{
@@ -57,23 +60,26 @@ const Head = ()=>{
                 value={searchQuery}
                 onChange={(e)=>setSearchQuery(e.target.value)}
                />
-               <button className="border border-gray-400 p-2 px-5 bg-gray-100 rounded-r-full">🔍</button>
-                </div> 
+               <button className="border border-gray-400 p-2 px-5 bg-gray-100 rounded-r-full">Search</button>
+             </div> 
          
                <div className="fixed bg-white py-2 px-2 w-[37rem] shadow-lg rounded-lg border border-gray-100">
                    <ul> 
+
                     {
-                      suggestions?.map((s)=>{<li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">{s}</li>})
-                    }
-                    
-                    
+                       suggestions?.map((s) => (
+                           (
+                          <li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">
+                            {s}
+                          </li>
+                           )
+                          ))  
+                    }   
                   </ul>
                </div>
            </div>
-
-
           <div className="col-span-1">
-            <img className="h-8" src="https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" alt="user-icon" />
+            <img className="h-8" src="" alt="user-icon" />
           </div>
 
 
