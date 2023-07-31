@@ -2,7 +2,7 @@ import React,{useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {toggleMenu} from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constant";
-import { cacheResults } from "../utils/searchSlice";
+import { cacheResults } from "../utils/SearchSlice";
 
 const Head = ()=>{
 
@@ -11,6 +11,7 @@ const Head = ()=>{
   const[showSuggestions,setShowSuggestions] = useState(false)
 
   const searchCache = useSelector((store)=>store.search);
+  const dispatch = useDispatch();
    
        
   useEffect(()=>{
@@ -27,53 +28,26 @@ const Head = ()=>{
              
           },[searchQuery]); 
 
-//   const getSearchSuggestions = async () => {
-//     // console.log(searchQuery);
-//   const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-//   const json = await data.json();
-//   //console.log(json[1])
-//   setSuggestions(json[1]) 
-//   dispatch(
-//     cacheResults({
-//     [searchQuery]:json[1],
-//   })
-//   );
 
-//  };
 const getSearchSuggestions = async () => {
-  const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-  const json = await data.json();
-
-  if (json && json.length > 1) { // Check if json is defined and has at least 2 elements
+  try{
+    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+    const json = await data.json();
     setSuggestions(json[1]);
     dispatch(cacheResults({ [searchQuery]: json[1] }));
-  } else {
-    setSuggestions([]); // Set empty suggestions if json is undefined or doesn't have enough data
+
+  }catch(error){
+    console.log(error);
+  
+    setSuggestions([]);
+
   }
+
 };
 
 
-// const getSearchSuggestions = async () => {
-//   //.log(searchQuery)
-//   const response = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-//   const text = await response.text();
-//   console.log(text);
 
-//   const startIndex = text.indexOf('[');
-//   const endIndex = text.lastIndexOf(']');
-
-//   if (startIndex !== -1 && endIndex !== -1) {
-//     const suggestionsJSON = text.substring(startIndex, endIndex + 1);
-//     const suggestions = JSON.parse(suggestionsJSON);
-//     console.log(suggestions);
-//   }
-//   setSuggestions(json[1]);
-
-// };
-
-
-
-  const dispatch = useDispatch();
+ 
   const toggleMenuHandler = () =>{
         dispatch(toggleMenu());
   };
