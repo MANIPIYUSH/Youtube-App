@@ -12,12 +12,12 @@ import Comments from "./Comments";
                                     text:'Hi this is comment done by me',
                                     reply:[
            
-                                    ]
+                                          ]
                                    
-                                   },
+                              },
                                    
 
-                         ]
+                                 ]
                         
                         },{
                               name:'Piyush',
@@ -110,7 +110,7 @@ const CommentContainer = ()=>{
 
       return(
                 <div className="m-5 p-2">
-                     <h1 className="text-2xl font-bold"> Comment:</h1>                
+                     <h1 className="text-2xl font-bold"> Comments:</h1>                
                       <CommentList comments={CommentData}/>
                 </div>
 

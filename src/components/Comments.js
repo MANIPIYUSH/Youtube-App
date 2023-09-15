@@ -1,11 +1,4 @@
 import React from 'react'
-
-
-
-
-
-
-
 const  Comments = ({data})=>{
 
     const {name,text}= data;
@@ -18,9 +11,6 @@ const  Comments = ({data})=>{
             <p>{text}</p>
 
             </div>
-
-              
-           
            </div>
 
   )
