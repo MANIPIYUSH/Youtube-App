@@ -11,6 +11,12 @@ function ButtonList() {
       <Button name="Soccer"/>
       <Button name="Cricket"/>
       <Button name="Bollywood"/>
+      <Button name="Coding"/>
+      <Button name="Technology"/>
+      <Button name="Satsang"/>
+      <Button name="Thoughts"/>
+      <Button name="Lectures"/>
+      <Button name="News"/>
       
 
     </div>

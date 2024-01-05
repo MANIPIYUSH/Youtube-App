@@ -86,7 +86,7 @@ const getSearchSuggestions = async () => {
                </div>)}
            </div>
           <div className="col-span-1">
-            <img className="h-8" src="" alt="user-icon" />
+            <img className="h-8" src="https://media.licdn.com/dms/image/D4D03AQFnhdIMuMoL3A/profile-displayphoto-shrink_800_800/0/1701966636672?e=1707955200&v=beta&t=YrH8behyTUermCkSrlqjMylMZvUz0163nWBgji65JOc" alt="user-icon" />
           </div>
 
 
